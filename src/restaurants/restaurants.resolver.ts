@@ -1,3 +1,4 @@
+import { RestaurantService } from './restaurants.service';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
@@ -6,11 +7,10 @@ import { Restaurant } from './entities/restaurant.entity';
 
 @Resolver((of) => Restaurant)
 export class RestaurantsResolver {
+  constructor(private readonly restaurnatService: RestaurantService) {}
   @Query((returns) => [Restaurant])
-  restuarants(@Args('veganOnly') veganOnly: boolean): Restaurant[] {
-    console.log(veganOnly);
-
-    return [];
+  restuarants(): Promise<Restaurant[]> {
+    return this.restaurnatService.getAll();
   }
 
   @Mutation((returns) => Boolean)
