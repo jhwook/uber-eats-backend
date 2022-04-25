@@ -10,7 +10,7 @@ export class RestaurantsResolver {
   constructor(private readonly restaurnatService: RestaurantService) {}
   @Query((returns) => [Restaurant])
   restuarants(): Promise<Restaurant[]> {
-    return this.restaurnatService.getAll();
+    return;
   }
 
   @Mutation((returns) => Boolean)
