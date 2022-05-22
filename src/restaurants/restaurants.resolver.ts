@@ -10,13 +10,19 @@ export class RestaurantsResolver {
   constructor(private readonly restaurnatService: RestaurantService) {}
   @Query((returns) => [Restaurant])
   restuarants(): Promise<Restaurant[]> {
-    return;
+    return this.restaurnatService.getAll();
   }
 
   @Mutation((returns) => Boolean)
-  createRestaurant(@Args() createRestaurantDto: CreateRestaurantDto): boolean {
-    console.log(createRestaurantDto);
-
-    return true;
+  async createRestaurant(
+    @Args('input') createRestaurantDto: CreateRestaurantDto,
+  ): Promise<boolean> {
+    try {
+      await this.restaurnatService.createRestaurant(createRestaurantDto);
+      return true;
+    } catch (e) {
+      console.log('error', e);
+      return false;
+    }
   }
 }
