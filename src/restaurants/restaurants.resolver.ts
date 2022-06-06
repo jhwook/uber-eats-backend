@@ -1,8 +1,10 @@
+import { UpdateRestaurantInputType } from './dtos/update-restaurant.dto';
 import { RestaurantService } from './restaurants.service';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateRestaurantDto } from './dtos/create-restaurant.dto';
+import { UpdateRestaurantDto } from './dtos/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 
 @Resolver((of) => Restaurant)
@@ -24,5 +26,12 @@ export class RestaurantsResolver {
       console.log('error', e);
       return false;
     }
+  }
+
+  @Mutation((returns) => Boolean)
+  async udpateRestaurant(
+    @Args('input') updateRestaurantDto: UpdateRestaurantDto,
+  ) {
+    return true;
   }
 }
