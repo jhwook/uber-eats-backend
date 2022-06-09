@@ -1,4 +1,3 @@
-import { UpdateRestaurantInputType } from './dtos/update-restaurant.dto';
 import { RestaurantService } from './restaurants.service';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
@@ -29,9 +28,15 @@ export class RestaurantsResolver {
   }
 
   @Mutation((returns) => Boolean)
-  async udpateRestaurant(
+  async updateRestaurant(
     @Args('input') updateRestaurantDto: UpdateRestaurantDto,
   ) {
-    return true;
+    try {
+      await this.restaurnatService.updateRestaurant(updateRestaurantDto);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 }
